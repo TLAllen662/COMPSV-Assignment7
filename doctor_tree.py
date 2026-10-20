@@ -1,12 +1,13 @@
 class DoctorNode:
-    pass # Delete this line and implement the DoctorNode class
-
+    def __init__(self, name):
+        self.name = name
+        self.left = None
+        self.right = None
 
 
 class DoctorTree:
-    pass # Delete this line and implement the DoctorTree class
-
-
+    def __init__(self):
+        self.root = None
 
 
 # Test your DoctorTree and DoctorNode classes here
