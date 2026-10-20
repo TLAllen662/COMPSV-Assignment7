@@ -1,0 +1,10 @@
+Reflection
+
+Why is a tree appropriate for the doctor structure?
+A reporting structure is hierarchical: every doctor (except the head) reports to exactly one parent, and each doctor may oversee their own reports. A tree models this directly, with the root as the top of the hierarchy and each node's children as its reports. A flat list would lose these relationships, and a graph would allow cycles or multiple managers that do not exist here. A binary tree also makes lookups and inserts under a specific parent straightforward, since every node has a clear left and right position.
+
+When might a software engineer use preorder, inorder, or postorder traversals?
+Preorder visits a node before its children, so it is useful for copying or serializing a tree, or printing an org chart from the top down, because parents always appear before their reports. Inorder visits the left subtree, then the node, then the right subtree. On a binary search tree this produces values in sorted order, so it is useful for ordered reports or validating a BST. Postorder visits children before the parent, which is useful when a node depends on its children's results, such as deleting a tree safely, freeing resources, or computing totals like the size of a team or the cost of a department.
+
+How do heaps help simulate real-time systems like emergency intake?
+An emergency room must always treat the most urgent patient next, not simply the one who arrived first. A min-heap keeps the lowest urgency score at the root, so peek is O(1), while insert and remove_min are O(log n). This means the queue stays correctly prioritized as patients arrive and are served, without re-sorting the whole list each time. That efficiency matters when new patients arrive continuously and decisions must be made quickly.
