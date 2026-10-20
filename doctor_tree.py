@@ -52,3 +52,49 @@ class DoctorTree:
 
 
 # Test your DoctorTree and DoctorNode classes here
+if __name__ == "__main__":
+    # Empty tree
+    empty = DoctorTree()
+    assert empty.root is None
+    assert empty.insert("Anyone", "Dr. X", "left") is False
+    assert empty.preorder(empty.root) == []
+    assert empty.inorder(empty.root) == []
+    assert empty.postorder(empty.root) == []
+
+    # Build the example tree
+    tree = DoctorTree()
+    tree.root = DoctorNode("Dr. Croft")
+    assert tree.insert("Dr. Croft", "Dr. Goldsmith", "right") is True
+    assert tree.insert("Dr. Croft", "Dr. Phan", "left") is True
+    assert tree.insert("Dr. Phan", "Dr. Carson", "right") is True
+    assert tree.insert("Dr. Phan", "Dr. Morgan", "left") is True
+
+    # Traversals
+    assert tree.preorder(tree.root) == ["Dr. Croft", "Dr. Phan", "Dr. Morgan", "Dr. Carson", "Dr. Goldsmith"]
+    assert tree.inorder(tree.root) == ["Dr. Morgan", "Dr. Phan", "Dr. Carson", "Dr. Croft", "Dr. Goldsmith"]
+    assert tree.postorder(tree.root) == ["Dr. Morgan", "Dr. Carson", "Dr. Phan", "Dr. Goldsmith", "Dr. Croft"]
+
+    # Traversal of a subtree and a leaf
+    assert tree.preorder(tree.root.left) == ["Dr. Phan", "Dr. Morgan", "Dr. Carson"]
+    assert tree.inorder(tree.root.left.left) == ["Dr. Morgan"]
+
+    # Edge cases: all must fail and leave the tree unchanged
+    before = tree.preorder(tree.root)
+    assert tree.insert("Dr. Nobody", "Dr. X", "left") is False    # missing parent
+    assert tree.insert("Dr. Croft", "Dr. X", "up") is False       # invalid side
+    assert tree.insert("Dr. Croft", "Dr. X", "Left") is False     # case-sensitive side
+    assert tree.insert("Dr. Croft", "Dr. X", "") is False         # empty side
+    assert tree.insert("Dr. Croft", "Dr. X", "left") is False     # occupied side
+    assert tree.insert("Dr. Phan", "Dr. X", "right") is False     # occupied side
+    assert tree.preorder(tree.root) == before
+
+    # Insert deep in the tree
+    assert tree.insert("Dr. Morgan", "Dr. Lee", "left") is True
+    assert tree.preorder(tree.root) == ["Dr. Croft", "Dr. Phan", "Dr. Morgan", "Dr. Lee", "Dr. Carson", "Dr. Goldsmith"]
+
+    # Single-node tree
+    solo = DoctorTree()
+    solo.root = DoctorNode("Dr. Solo")
+    assert solo.preorder(solo.root) == solo.inorder(solo.root) == solo.postorder(solo.root) == ["Dr. Solo"]
+
+    print("All DoctorTree tests passed.")
