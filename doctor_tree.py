@@ -35,5 +35,20 @@ class DoctorTree:
         setattr(parent, side, DoctorNode(employee_name))
         return True
 
+    def preorder(self, node):
+        if node is None:
+            return []
+        return [node.name] + self.preorder(node.left) + self.preorder(node.right)
+
+    def inorder(self, node):
+        if node is None:
+            return []
+        return self.inorder(node.left) + [node.name] + self.inorder(node.right)
+
+    def postorder(self, node):
+        if node is None:
+            return []
+        return self.postorder(node.left) + self.postorder(node.right) + [node.name]
+
 
 # Test your DoctorTree and DoctorNode classes here
