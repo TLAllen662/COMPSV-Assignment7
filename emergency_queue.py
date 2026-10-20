@@ -6,7 +6,8 @@ class Patient:
 
 
 class MinHeap:
-    pass # Delete this line and implement the MinHeap class
+    def __init__(self):
+        self.data = []
 
 
 
