@@ -1,5 +1,7 @@
 class Patient:
-    pass # Delete this line and implement the Patient class
+    def __init__(self, name, urgency):
+        self.name = name
+        self.urgency = urgency
 
 
 
